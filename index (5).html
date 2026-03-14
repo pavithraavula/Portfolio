@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pavithra Avula — Bioinformatician</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #FAFAF8; --white: #FFFFFF; --text: #1C1C1C; --muted: #6B6B6B;
+    --light: #F0EEE9; --border: #E4E2DC; --accent: #2563A8; --accent-bg: #EEF4FB;
+    --green: #166534; --green-bg: #DCFCE7;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 15px; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,250,248,0.96); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 6%; height: 58px;
+  }
+  .nav-brand { font-family: 'Lora', serif; font-size: 16px; color: var(--text); text-decoration: none; font-weight: 600; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero { padding: 90px 6% 70px; max-width: 820px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--green-bg); color: var(--green);
+    font-size: 12px; font-weight: 500; padding: 4px 12px;
+    border-radius: 20px; margin-bottom: 24px;
+  }
+  .hero-badge::before { content: ''; width: 7px; height: 7px; background: #16a34a; border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+  .hero h1 { font-family: 'Lora', serif; font-size: clamp(38px, 6vw, 64px); font-weight: 600; line-height: 1.1; margin-bottom: 20px; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub { font-size: 16px; color: var(--muted); line-height: 1.75; max-width: 520px; margin-bottom: 10px; font-weight: 300; }
+  .typing-line { font-size: 15px; color: var(--accent); font-weight: 500; margin-bottom: 28px; min-height: 24px; }
+  .cursor { display: inline-block; width: 2px; height: 1em; background: var(--accent); margin-left: 1px; vertical-align: middle; animation: blink 0.8s step-end infinite; }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary { background: var(--text); color: #fff; padding: 11px 24px; font-size: 13px; font-weight: 500; text-decoration: none; border-radius: 4px; transition: background 0.2s; display: inline-block; }
+  .btn-primary:hover { background: #333; }
+  .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); padding: 11px 24px; font-size: 13px; text-decoration: none; border-radius: 4px; transition: border-color 0.2s, background 0.2s; display: inline-block; }
+  .btn-secondary:hover { border-color: #999; background: var(--light); }
+
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 52px; }
+  .stat { border-top: 2px solid var(--text); padding-top: 14px; }
+  .stat-num { font-family: 'Lora', serif; font-size: 34px; font-weight: 600; }
+  .stat-desc { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0 6%; }
+  section { padding: 72px 6%; }
+  .section-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 10px; }
+  .section-title { font-family: 'Lora', serif; font-size: clamp(24px, 3vw, 34px); font-weight: 600; margin-bottom: 40px; line-height: 1.2; }
+
+  /* ABOUT - fun personal */
+  .about-bg { background: var(--white); }
+  .about-fun {
+    max-width: 680px;
+    font-size: 16px; color: #2a2a2a; line-height: 1.9; font-weight: 300;
+  }
+  .about-fun strong { font-weight: 500; color: var(--text); }
+  .about-fun .highlight { color: var(--accent); font-weight: 500; }
+
+  /* SKILL CARDS */
+  .skill-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .skill-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 10px; padding: 24px;
+    transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+  .skill-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .skill-card:hover.teal { border-color: #0f766e; }
+  .skill-card:hover.blue { border-color: #1d4ed8; }
+  .skill-card:hover.purple { border-color: #7c3aed; }
+  .skill-card:hover.orange { border-color: #c2410c; }
+  .skill-card:hover.green { border-color: #166534; }
+  .skill-card-icon { font-size: 24px; margin-bottom: 12px; }
+  .skill-card-title { font-size: 13px; font-weight: 500; margin-bottom: 14px; letter-spacing: 0.03em; }
+  .skill-card-title.teal { color: #0f766e; }
+  .skill-card-title.blue { color: #1d4ed8; }
+  .skill-card-title.purple { color: #7c3aed; }
+  .skill-card-title.orange { color: #c2410c; }
+  .skill-card-title.green { color: #166534; }
+  .skill-card-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  .sct {
+    font-size: 12px; padding: 4px 10px; border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .skill-card:hover .sct.teal { background: #f0fdfa; color: #115e59; border: 1px solid #99f6e4; }
+  .skill-card:hover .sct.blue { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .skill-card:hover .sct.purple { background: #faf5ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+  .skill-card:hover .sct.orange { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+  .skill-card:hover .sct.green { background: #f0fdf4; color: #14532d; border: 1px solid #bbf7d0; }
+  .sct.teal { background: var(--light); color: var(--muted); border: 1px solid var(--border); }
+  .sct.blue { background: var(--light); color: var(--muted); border: 1px solid var(--border); }
+  .sct.purple { background: var(--light); color: var(--muted); border: 1px solid var(--border); }
+  .sct.orange { background: var(--light); color: var(--muted); border: 1px solid var(--border); }
+  .sct.green { background: var(--light); color: var(--muted); border: 1px solid var(--border); }
+
+  /* SKILLS - colorful badge grid */
+  .skill-cats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
+  .skill-cat { }
+  .skill-cat-label {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 500; margin-bottom: 12px;
+    padding-bottom: 8px; border-bottom: 2px solid;
+  }
+  .skill-cat-label.blue { color: #1d4ed8; border-color: #1d4ed8; }
+  .skill-cat-label.teal { color: #0f766e; border-color: #0f766e; }
+  .skill-cat-label.purple { color: #7c3aed; border-color: #7c3aed; }
+  .skill-cat-label.orange { color: #c2410c; border-color: #c2410c; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  .stag {
+    font-size: 12px; padding: 4px 11px; border-radius: 4px; font-weight: 400;
+  }
+  .stag.blue { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .stag.teal { background: #f0fdfa; color: #115e59; border: 1px solid #99f6e4; }
+  .stag.purple { background: #faf5ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+  .stag.orange { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+
+  /* EXPERIENCE */
+  .exp-bg { background: var(--white); }
+  .exp-item { border-top: 1px solid var(--border); padding: 32px 0; }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; flex-wrap: wrap; gap: 8px; }
+  .exp-title { font-family: 'Lora', serif; font-size: 18px; font-weight: 600; }
+  .exp-period { font-size: 12px; color: var(--muted); background: var(--light); padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+  .exp-org { font-size: 13px; color: var(--accent); font-weight: 500; margin-bottom: 14px; }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li { font-size: 14px; color: #3a3a3a; line-height: 1.75; padding: 3px 0 3px 18px; position: relative; }
+  .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 12px; top: 4px; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 18px; }
+  .project-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 24px; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+  .project-card:hover { border-color: #aaa; box-shadow: 0 6px 20px rgba(0,0,0,0.07); transform: translateY(-2px); }
+  .project-icon { font-size: 20px; margin-bottom: 12px; }
+  .project-title { font-family: 'Lora', serif; font-size: 15px; font-weight: 600; margin-bottom: 8px; line-height: 1.35; }
+  .project-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .project-tag { font-size: 11px; color: var(--accent); background: var(--accent-bg); padding: 3px 8px; border-radius: 3px; border: 1px solid #bdd5ef; }
+
+  /* PUBLICATIONS */
+  .pub-bg { background: var(--white); }
+  .pub-item { border-top: 1px solid var(--border); padding: 24px 0; }
+  .pub-title { font-family: 'Lora', serif; font-size: 15px; font-weight: 600; line-height: 1.45; margin-bottom: 6px; }
+  .pub-venue { font-size: 12px; color: var(--accent); font-weight: 500; margin-bottom: 4px; }
+  .pub-authors { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* EDUCATION */
+  .edu-item { border: 1px solid var(--border); border-radius: 8px; padding: 24px 28px; background: var(--white); display: flex; align-items: flex-start; gap: 18px; }
+  .edu-logo { min-width: 46px; height: 46px; background: var(--accent-bg); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'Lora', serif; font-size: 13px; color: var(--accent); font-weight: 600; }
+  .edu-degree { font-family: 'Lora', serif; font-size: 16px; font-weight: 600; margin-bottom: 3px; }
+  .edu-school { font-size: 13px; color: var(--accent); font-weight: 500; }
+  .edu-meta { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+  /* CONTACT */
+  .contact-bg { background: var(--text); }
+  .contact-bg .section-label { color: #777; }
+  .contact-bg .section-title { color: #fff; }
+  .contact-sub { font-size: 15px; color: #999; line-height: 1.7; max-width: 460px; margin-bottom: 32px; font-weight: 300; }
+  .contact-links { display: flex; flex-direction: column; gap: 10px; max-width: 420px; }
+  .contact-row { display: flex; align-items: center; gap: 14px; color: #bbb; font-size: 14px; padding: 13px 16px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+  .contact-row:hover { background: rgba(255,255,255,0.07); color: #fff; }
+  .contact-icon { font-size: 14px; min-width: 20px; text-align: center; }
+
+  footer { background: #111; padding: 22px 6%; text-align: center; font-size: 12px; color: #555; }
+
+  @media (max-width: 768px) {
+    .stats-row { grid-template-columns: 1fr; gap: 16px; }
+    .nav-links { display: none; }
+    .hero { padding: 56px 6% 48px; }
+    .skill-cats { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-brand">Pavithra Avula</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Open to Opportunities</div>
+  <h1>Pavithra <em>Avula</em></h1>
+  <p class="hero-sub">Bioinformatician specializing in NGS data analysis, multi-omics integration, and genomic pipeline development — turning raw sequencing data into reproducible, biologically meaningful insights.</p>
+  <p class="typing-line"><span id="typed-text"></span><span class="cursor"></span></p>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">Get in Touch</a>
+    <a href="#projects" class="btn-secondary">View My Work</a>
+  </div>
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-num">3+</div>
+      <div class="stat-desc">Years building NGS pipelines across RNA-seq, WGS &amp; ChIP-seq</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-desc">Peer-reviewed publications at ACM-BCB &amp; IEEE EMBC</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3.75</div>
+      <div class="stat-desc">GPA — M.S. Bioinformatics, Georgia Tech</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<section id="about" class="about-bg">
+  <p class="section-label">Who I Am</p>
+  <h2 class="section-title">About Me</h2>
+  <div class="about-fun">
+    <p>I'm a bioinformatician who cares about <strong>making data mean something</strong>. My work sits at the intersection of genomics and computation — taking raw sequencing data and extracting patterns that are biologically real and clinically useful.</p>
+    <p style="margin-top:16px;">I'm particularly drawn to <span class="highlight">genomics research and NGS analysis</span> — the idea that the answers to some of medicine's hardest questions are already encoded in the data, waiting to be found. That's what drives my work in multi-omics integration, reproducible pipeline development, and translational bioinformatics.</p>
+    <p style="margin-top:16px;">I thrive when complexity becomes clarity — and I bring that same rigor whether I'm building a pipeline from scratch, interpreting differential expression results, or collaborating across disciplines to turn findings into impact.</p>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section id="skills">
+  <p class="section-label">Technical Expertise</p>
+  <h2 class="section-title">Skills</h2>
+  <div class="skill-cards-grid">
+    <div class="skill-card teal">
+      <div class="skill-card-icon">🧬</div>
+      <div class="skill-card-title teal">Genomics &amp; NGS</div>
+      <div class="skill-card-tags">
+        <span class="sct teal">RNA-seq</span><span class="sct teal">scRNA-seq</span>
+        <span class="sct teal">WGS</span><span class="sct teal">ChIP-seq</span>
+        <span class="sct teal">Differential Expression</span><span class="sct teal">Pathway Enrichment</span>
+        <span class="sct teal">Variant Calling</span><span class="sct teal">PRS Modeling</span>
+        <span class="sct teal">Multi-Omics</span>
+      </div>
+    </div>
+    <div class="skill-card teal">
+      <div class="skill-card-icon">🔬</div>
+      <div class="skill-card-title teal">Bioinformatics Tools</div>
+      <div class="skill-card-tags">
+        <span class="sct teal">Seurat</span><span class="sct teal">DESeq2</span>
+        <span class="sct teal">edgeR</span><span class="sct teal">GATK</span>
+        <span class="sct teal">SAMtools</span><span class="sct teal">ANNOVAR</span>
+        <span class="sct teal">VEP</span><span class="sct teal">Bioconductor</span>
+        <span class="sct teal">Galaxy</span>
+      </div>
+    </div>
+    <div class="skill-card blue">
+      <div class="skill-card-icon">💻</div>
+      <div class="skill-card-title blue">Programming</div>
+      <div class="skill-card-tags">
+        <span class="sct blue">Python</span><span class="sct blue">R</span>
+        <span class="sct blue">Bash</span><span class="sct blue">SQL</span>
+        <span class="sct blue">pandas</span><span class="sct blue">NumPy</span>
+        <span class="sct blue">SciPy</span><span class="sct blue">scikit-learn</span>
+        <span class="sct blue">ggplot2</span>
+      </div>
+    </div>
+    <div class="skill-card orange">
+      <div class="skill-card-icon">📊</div>
+      <div class="skill-card-title orange">ML &amp; Statistics</div>
+      <div class="skill-card-tags">
+        <span class="sct orange">Logistic Regression</span><span class="sct orange">Random Forest</span>
+        <span class="sct orange">K-Modes Clustering</span><span class="sct orange">Cross-Validation</span>
+        <span class="sct orange">ROC/AUC</span><span class="sct orange">Feature Engineering</span>
+        <span class="sct orange">Statistical Modeling</span>
+      </div>
+    </div>
+    <div class="skill-card purple">
+      <div class="skill-card-icon">☁️</div>
+      <div class="skill-card-title purple">Infrastructure</div>
+      <div class="skill-card-tags">
+        <span class="sct purple">Linux / HPC</span><span class="sct purple">SLURM</span>
+        <span class="sct purple">AWS S3/EC2</span><span class="sct purple">Git</span>
+        <span class="sct purple">Docker</span><span class="sct purple">conda</span>
+        <span class="sct purple">PostgreSQL</span>
+      </div>
+    </div>
+    <div class="skill-card green">
+      <div class="skill-card-icon">📈</div>
+      <div class="skill-card-title green">Visualization</div>
+      <div class="skill-card-tags">
+        <span class="sct green">R Shiny</span><span class="sct green">R Markdown</span>
+        <span class="sct green">Tableau</span><span class="sct green">ggplot2</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section id="experience" class="exp-bg">
+  <p class="section-label">Work History</p>
+  <h2 class="section-title">Experience</h2>
+  <div class="exp-item">
+    <div class="exp-header">
+      <div class="exp-title">Bioinformatics Research Assistant</div>
+      <span class="exp-period">Aug 2023 – Present</span>
+    </div>
+    <div class="exp-org">Bio-MIBLab · Georgia Institute of Technology · Atlanta, GA</div>
+    <ul class="exp-bullets">
+      <li>Developed logistic regression models integrating polygenic risk scores (PRS) with clinical covariates using UK Biobank data, improving prostate cancer risk prediction AUC from 0.707 to 0.769.</li>
+      <li>Processed and harmonized large-scale genotype–phenotype datasets; implemented feature engineering and k-fold cross-validation pipelines in Python.</li>
+      <li>Built Random Forest models to predict alcoholic liver cirrhosis from ICD-10 clinical data, achieving 72.9% Class 1 recall and AUC of 0.852.</li>
+      <li>Conducted model evaluation using ROC analysis, recall prioritization, and feature importance for clinically interpretable risk stratification.</li>
+      <li>Engineered biologically informed feature sets for autoimmune disease modeling by integrating curated gene associations with clinical data.</li>
+      <li>Performed unsupervised K-Modes clustering to identify clinically distinct keloid subtypes and high-risk cohorts.</li>
+      <li>Maintained reproducible analysis workflows using Jupyter, Git, and modular Python scripts in a Linux-based environment.</li>
+    </ul>
+  </div>
+  <div class="exp-item">
+    <div class="exp-header">
+      <div class="exp-title">Bioinformatics Analyst</div>
+      <span class="exp-period">Aug 2021 – Jul 2023</span>
+    </div>
+    <div class="exp-org">Biomedical Research Center · Hyderabad, India</div>
+    <ul class="exp-bullets">
+      <li>Implemented NGS pipelines (RNA-Seq, ChIP-Seq, WGS) using Galaxy and Bioconductor, improving research turnaround time through HPC and cloud computing integration.</li>
+      <li>Conducted differential expression and pathway enrichment analysis with R and Bioconductor for biomarker discovery across transcriptomics datasets.</li>
+      <li>Automated workflows with Bash, Python, and R scripts; developed SOPs for smooth data migration between HPC and cloud environments.</li>
+      <li>Performed variant annotation and prioritized clinically significant mutations using ANNOVAR and VEP.</li>
+      <li>Created visual reports using R Shiny and Tableau; contributed to peer-reviewed publications in oncology genomics and personalized medicine.</li>
+    </ul>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section id="projects">
+  <p class="section-label">Research &amp; Projects</p>
+  <h2 class="section-title">Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-icon">🧫</div>
+      <div class="project-title">NGS-Based Lung Cancer Genomic Analysis</div>
+      <div class="project-desc">Processed FASTQ to VCF for lung cancer cohorts — alignment, variant calling, and mutation profiling to identify clinically relevant genomic markers.</div>
+      <div class="project-tags"><span class="project-tag">WGS</span><span class="project-tag">GATK</span><span class="project-tag">SAMtools</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">🧬</div>
+      <div class="project-title">Transcriptomics &amp; Pathway Enrichment</div>
+      <div class="project-desc">Differential expression and pathway enrichment analysis using DESeq2, edgeR, and Bioconductor for biomarker discovery in oncology research.</div>
+      <div class="project-tags"><span class="project-tag">RNA-seq</span><span class="project-tag">DESeq2</span><span class="project-tag">Bioconductor</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">🔬</div>
+      <div class="project-title">Keloid Scar Subtype Clustering</div>
+      <div class="project-desc">K-Modes unsupervised clustering on categorical clinical data to identify distinct keloid subtypes and high-risk patient cohorts.</div>
+      <div class="project-tags"><span class="project-tag">K-Modes</span><span class="project-tag">R</span><span class="project-tag">Clinical Data</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">🧪</div>
+      <div class="project-title">Prostate Cancer Risk Prediction with PRS</div>
+      <div class="project-desc">Integrated polygenic risk scores with clinical covariates from UK Biobank, improving cancer risk prediction AUC from 0.707 to 0.769.</div>
+      <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">PRS Modeling</span><span class="project-tag">UK Biobank</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">💊</div>
+      <div class="project-title">Digoxin Efficacy in Heart Failure</div>
+      <div class="project-desc">Statistical comparison of treatment vs placebo groups using regression modeling and hypothesis testing to evaluate therapeutic effectiveness.</div>
+      <div class="project-tags"><span class="project-tag">R</span><span class="project-tag">Statistical Modeling</span><span class="project-tag">Clinical Trials</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">📈</div>
+      <div class="project-title">COVID-19 Time-Series Forecasting</div>
+      <div class="project-desc">Prophet-based forecasting models in Python to predict infection trends, evaluated with MAE and RMSE across multiple regional datasets.</div>
+      <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">Prophet</span><span class="project-tag">Time-Series</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section id="publications" class="pub-bg">
+  <p class="section-label">Research Output</p>
+  <h2 class="section-title">Publications</h2>
+  <div class="pub-item">
+    <div class="pub-title">Uncovering Key Features of Individuals Who Benefit from Polygenic Risk Scores in Prostate Cancer Prediction</div>
+    <div class="pub-venue">15th ACM International Conference on Bioinformatics, Computational Biology and Health Informatics · Nov 2024</div>
+    <div class="pub-authors">Hornback A, Isgut M, Jaishankar A, Sathu H, <strong>Avula P</strong>, Wang MD.</div>
+  </div>
+  <div class="pub-item">
+    <div class="pub-title">Large Language Models in Healthcare and Biomedical Informatics: A Comprehensive Review</div>
+    <div class="pub-venue">Authorea Preprints</div>
+    <div class="pub-authors">Hornback A, Sathu H, Kim K, Wang Y, Zhu Y, Isgut M, ..., <strong>Avula P</strong>, ..., Wang MD.</div>
+  </div>
+  <div class="pub-item">
+    <div class="pub-title">Identifying Features for Keloid Scars Subtyping Using K-Modes Clustering</div>
+    <div class="pub-venue">2024 46th Annual International Conference of the IEEE EMBC · Jul 2024</div>
+    <div class="pub-authors">Jaishankar A, Jain N, Hornback A, Khimani A, <strong>Avula P</strong>, Wang MD.</div>
+  </div>
+  <div class="pub-item">
+    <div class="pub-title">Predicting Cardiovascular Disease Risk in Tobacco Users Using Machine Learning Algorithms</div>
+    <div class="pub-venue">2024 46th Annual International Conference of the IEEE EMBC · Jul 2024</div>
+    <div class="pub-authors">Khimani A, Hornback A, Jain N, <strong>Avula P</strong>, Jaishankar A, Wang MD.</div>
+  </div>
+  <div style="margin-top: 28px;">
+    <a href="https://drive.google.com/file/d/1CSHt14CdjvcvVOeakYXkFVUQyokDUMk0/view?usp=sharing" target="_blank" class="btn-secondary">View All Publications ↗</a>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section id="education">
+  <p class="section-label">Academic Background</p>
+  <h2 class="section-title">Education</h2>
+  <div class="edu-item">
+    <div class="edu-logo">GT</div>
+    <div>
+      <div class="edu-degree">Master of Science in Bioinformatics</div>
+      <div class="edu-school">Georgia Institute of Technology</div>
+      <div class="edu-meta">Aug 2023 – May 2024 &nbsp;·&nbsp; Atlanta, United States &nbsp;·&nbsp; GPA 3.75 / 4.0</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section id="contact" class="contact-bg">
+  <p class="section-label">Let's Connect</p>
+  <h2 class="section-title">Get In Touch</h2>
+  <p class="contact-sub">Actively looking for roles in bioinformatics, genomics, and computational biology. Feel free to reach out!</p>
+  <div class="contact-links">
+    <a href="/cdn-cgi/l/email-protection#82e3f4f7eee3f2e3f4ebf6eaf0e3bab4c2e5efe3ebeeace1edef" class="contact-row"><span class="contact-icon">✉</span> <span class="__cf_email__" data-cfemail="0b6a7d7e676a7b6a7d627f63796a333d4b6c666a626725686466">[email&#160;protected]</span></a>
+    <a href="tel:3147226660" class="contact-row"><span class="contact-icon">☎</span> (314) 722-6660</a>
+    <a href="https://www.linkedin.com/in/pavithraavula" target="_blank" class="contact-row"><span class="contact-icon">in</span> linkedin.com/in/pavithraavula</a>
+    <a href="https://drive.google.com/file/d/1CSHt14CdjvcvVOeakYXkFVUQyokDUMk0/view?usp=sharing" target="_blank" class="contact-row"><span class="contact-icon">↗</span> Research Publications</a>
+  </div>
+</section>
+
+<footer>© 2026 Pavithra Avula · Bioinformatician</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // TYPING EFFECT
+  const phrases = [
+    "NGS pipeline developer.",
+    "Multi-omics data analyst.",
+    "Genomics & transcriptomics specialist.",
+    "Open to bioinformatics roles."
+  ];
+  let pi = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typed-text');
+  function type() {
+    const phrase = phrases[pi];
+    if (!deleting) {
+      el.textContent = phrase.slice(0, ++ci);
+      if (ci === phrase.length) { deleting = true; setTimeout(type,
